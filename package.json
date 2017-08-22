@@ -1,0 +1,28 @@
+{
+  "name": "mern-todo-app",
+  "version": "1.0.0",
+  "description": "todo app",
+  "main": "start-client.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/server.js",
+    "client": "nodemon start-client.js",
+    "test": "export NODE_ENV=localtest || SET \"NODE_ENV=localtest\" && mocha server/**/*.test.js",
+    "test-watch": "export NODE_ENV=localtest && nodemon --exec 'npm test'"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.7"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "expect": "^1.20.2",
+    "mocha": "^3.5.0",
+    "mongodb": "^2.2.31",
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
