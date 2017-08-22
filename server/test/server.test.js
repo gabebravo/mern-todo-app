@@ -11,15 +11,43 @@ const {todos, populateTodos} = require('../seed/seed')
 // before any tests the test db is destroyed
 beforeEach(populateTodos);
 
-describe('GET /contact && GET /contact/find', () => {
-  it('should get all contacts', done => {
+describe('POST /todo', () => {
+
+  it('should add a new todo', done => {
+    const todo3 = { task: "fix the dishwasher" }
     request(app)
-      .get('/todo/start')
+      .post('/todo')
+      .send(todo3)
       .expect(200)
       .expect( res => {
-        expect(res.body.message).toBeA('string');
-        expect(res.body.message).toBe('most basic get route');
+        expect(res.body.id).toExist();
+        expect(res.body.task).toBe('fix the dishwasher');
       })
-      .end(done);
+      .end( (err, res) => { // check the actual DB response
+        if(err){ return done(err); }
+        const {id} = res.body;
+        Todo.findById(id)
+          .then( todo => {
+            expect(todo._id).toEqual(id);
+            done();
+          }).catch( e => done(e));
+      });
   });
+
+  it('should return 400 for not having required task property', done => {
+    request(app)
+      .post('/todo')
+      .send({})
+      .expect(400)
+      done();
+  });
+
+  it('should return 400 for passing a duplicate todo', done => {
+    request(app)
+      .post('/todo')
+      .send(todos[0].task)
+      .expect(400)
+      done();
+  });
+
 });

@@ -4,7 +4,8 @@ const Todo = mongoose.model('Todos', {
   
     task: {
       type: String,
-      required: true
+      required: true, 
+      unique: true
     },
   
     completed: {
