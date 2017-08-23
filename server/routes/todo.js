@@ -14,23 +14,31 @@ const createTodo = (req, res) => {
       const { _id, task } = todo;
       res.status(200).json({ id: _id, task })
     })
-    .catch( err => res.status(400).json(err.message))
+    .catch( err => res.status(400).json(err.message));
 }
 
 const getTodos = (req, res) => {
-  Todo.find({}, {_id: 1, task: 1})
+  Todo.find({}, {__v: 0})
     .then( todos => {
       res.status(200).json(todos);
     })
-    .catch( err => console.log(err.message))
+    .catch( err => res.status(400).json(err.message));
 }
 
 const getTodo = (req, res) => {
-  Todo.findById(req.params.id, {_id: 1, task: 1})
+  Todo.findById(req.params.id, {__v: 0})
     .then( todo => {
       res.status(200).json(todo);
     })
-    .catch( err => console.log(err.message))
+    .catch( err => res.status(400).json(err.message));
+}
+
+const updateTodo = (req, res) => {
+  Todo.findByIdAndUpdate(req.params.id, {$set: req.body}, {new:true})
+    .then( todo => {
+      res.status(200).json(todo);
+    })
+    .catch( err => res.status(400).json(err.message));
 }
 
 // tester
@@ -40,6 +48,7 @@ router.get('/start', getConnected);
 router.post('/', createTodo);
 router.get('/', getTodos);
 router.get('/:id', getTodo);
+router.patch('/:id', updateTodo);
 
 //export routes
 module.exports = router;

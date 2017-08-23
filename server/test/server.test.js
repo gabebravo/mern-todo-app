@@ -59,6 +59,7 @@ describe('GET /todo', () => {
       .expect(200)
       .expect( res => {
         expect(res.body.length).toEqual(2);
+        expect(res.body[0]).toIncludeKeys([ '_id', 'task', 'completed' ]);
       })
       .end(done);
   });
@@ -68,7 +69,34 @@ describe('GET /todo', () => {
       .expect(200)
       .expect( res => {
         expect(res.body.task).toBe(todos[0].task);
+        expect(res.body).toIncludeKeys([ '_id', 'task', 'completed' ]);
       })
       .end(done);
   });
+});
+
+describe('PATCH /todo', () => {
+  const completedStatus = { completed: !todos[0].completed};
+  it('should change the completed status of a todo', done => {
+    request(app)
+      .patch(`/todo/${todos[0]._id}`)
+      .send(completedStatus)
+      .expect(200)
+      .expect( res => {
+        expect(res.body.completed).toEqual(completedStatus.completed);
+      })
+      .end(done);
+  });
+
+  it('should return a 400 status', done => {
+    request(app)
+      .patch('/todo/abc123')
+      .expect(400)
+      .expect( res => {
+        expect(res.error).toExist();
+        expect(res.error).toIncludeKey('message');
+      })
+      .end(done);
+  });
+
 });
