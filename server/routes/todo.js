@@ -41,14 +41,20 @@ const updateTodo = (req, res) => {
     .catch( err => res.status(400).json(err.message));
 }
 
-// tester
-router.get('/start', getConnected);
+const deleteTodo = (req, res) => {
+  Todo.findByIdAndRemove(req.params.id)
+    .then( todo => {
+      res.status(200).json({task: todo.task});
+    })
+    .catch( err => res.status(400).json(err.message));
+}
 
 // routes
 router.post('/', createTodo);
 router.get('/', getTodos);
 router.get('/:id', getTodo);
 router.patch('/:id', updateTodo);
+router.delete('/:id', deleteTodo);
 
 //export routes
 module.exports = router;

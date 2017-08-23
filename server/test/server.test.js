@@ -3,16 +3,13 @@ const expect = require('expect');
 const request = require('supertest');
 const {app} = require('../server');
 const {Todo} = require('../models/todo'); // this is the collection name
-const {ObjectID} = require('mongodb');
 const {todos, populateTodos} = require('../seed/seed')
 
-// seed the data for a mock db
-
-// before any tests the test db is destroyed
+// before any tests, destroy the test db
+// and re-seed the data for a mock db and new testing
 beforeEach(populateTodos);
 
 describe('POST /todo', () => {
-
   it('should add a new todo', done => {
     const todo3 = { task: "fix the dishwasher" }
     request(app)
@@ -98,5 +95,35 @@ describe('PATCH /todo', () => {
       })
       .end(done);
   });
+});
 
+describe('DELETE /todo', () => {
+  const completedStatus = { completed: !todos[0].completed};
+  it('should delete a todo', done => {
+    request(app)
+      .delete(`/todo/${todos[0]._id}`)
+      .expect(200)
+      .expect( res => {
+        expect(res.body.task).toEqual(todos[0].task);
+      })
+      .end( (err, res) => { // check the actual DB response
+        if(err){ return done(err); }
+        Todo.find({})
+          .then( todos => {
+            expect(todos.length).toEqual(1);
+            done();
+          }).catch( e => done(e));
+      });
+  });
+
+  it('should not allow a faulty id to be deleted', done => {
+    request(app)
+      .delete('/todo/abc123')
+      .expect(400)
+      .expect( res => {
+        expect(res.error).toExist();
+        expect(res.error).toIncludeKey('message');
+      })
+      .end(done);
+  });
 });
