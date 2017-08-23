@@ -51,3 +51,24 @@ describe('POST /todo', () => {
   });
 
 });
+
+describe('GET /todo', () => {
+  it('should return an array of all todos', done => {
+    request(app)
+      .get('/todo')
+      .expect(200)
+      .expect( res => {
+        expect(res.body.length).toEqual(2);
+      })
+      .end(done);
+  });
+  it('should return a single todo by id', done => {
+    request(app)
+      .get(`/todo/${todos[0]._id}`)
+      .expect(200)
+      .expect( res => {
+        expect(res.body.task).toBe(todos[0].task);
+      })
+      .end(done);
+  });
+});
