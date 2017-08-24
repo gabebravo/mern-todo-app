@@ -11,6 +11,7 @@ beforeEach(populateTodos);
 
 describe('POST /todo', () => {
   it('should add a new todo', done => {
+    console.log(process.env.TEST_DB);
     const todo3 = { task: "fix the dishwasher" }
     request(app)
       .post('/todo')
