@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Button, Form, FormGroup, Input } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 const AddTodoForm = ({ description, handleFormInput, handleSubmission }) => {
   const button = description.length === 0 ? 
@@ -24,5 +25,10 @@ const AddTodoForm = ({ description, handleFormInput, handleSubmission }) => {
   )
 }
 
+AddTodoForm.propTypes = {
+  description: PropTypes.string.isRequired, 
+  handleFormInput: PropTypes.func.isRequired, 
+  handleSubmission: PropTypes.func.isRequired
+}
 
 export default AddTodoForm;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button, CardTitle, Row, Col } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 const CompletedTodo = ({ todoDescription, id, handleClick }) => (
   <Row style={{ justifyContent: 'center' }}>
@@ -11,5 +12,11 @@ const CompletedTodo = ({ todoDescription, id, handleClick }) => (
     </Col>
   </Row>
 );
+
+CompletedTodo.propTypes = {
+  todoDescription: PropTypes.string.isRequired, 
+  id: PropTypes.string.isRequired, 
+  handleClick: PropTypes.func.isRequired
+}
 
 export default CompletedTodo;

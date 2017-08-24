@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Button, CardTitle, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const ActiveTodo = ({ todoDescription, id, handleCompletedClick }) => (
   <Row style={{ justifyContent: 'center' }}>
@@ -16,5 +17,11 @@ const ActiveTodo = ({ todoDescription, id, handleCompletedClick }) => (
     </Col>
   </Row>
 );
+
+ActiveTodo.propTypes = {
+  todoDescription: PropTypes.string.isRequired, 
+  id: PropTypes.string.isRequired, 
+  handleCompletedClick: PropTypes.func.isRequired
+}
 
 export default ActiveTodo;
