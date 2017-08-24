@@ -80,7 +80,7 @@ describe('PATCH /todo', () => {
       .send(completedStatus)
       .expect(200)
       .expect( res => {
-        expect(res.body.completed).toEqual(completedStatus.completed);
+        expect(res.body[0].completed).toEqual(completedStatus.completed);
       })
       .end(done);
   });
@@ -104,16 +104,9 @@ describe('DELETE /todo', () => {
       .delete(`/todo/${todos[0]._id}`)
       .expect(200)
       .expect( res => {
-        expect(res.body.task).toEqual(todos[0].task);
+        expect(res.body.length).toEqual(1);
       })
-      .end( (err, res) => { // check the actual DB response
-        if(err){ return done(err); }
-        Todo.find({})
-          .then( todos => {
-            expect(todos.length).toEqual(1);
-            done();
-          }).catch( e => done(e));
-      });
+      .end(done);
   });
 
   it('should not allow a faulty id to be deleted', done => {

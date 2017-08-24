@@ -36,7 +36,10 @@ const getTodo = (req, res) => {
 const updateTodo = (req, res) => {
   Todo.findByIdAndUpdate(req.params.id, {$set: req.body}, {new:true})
     .then( todo => {
-      res.status(200).json(todo);
+      Todo.find({}, {__v: 0})
+        .then( todos => {
+          res.status(200).json(todos);
+        })
     })
     .catch( err => res.status(400).json(err.message));
 }
@@ -44,7 +47,10 @@ const updateTodo = (req, res) => {
 const deleteTodo = (req, res) => {
   Todo.findByIdAndRemove(req.params.id)
     .then( todo => {
-      res.status(200).json({task: todo.task});
+      Todo.find({}, {__v: 0})
+        .then( todos => {
+          res.status(200).json(todos);
+        })
     })
     .catch( err => res.status(400).json(err.message));
 }
