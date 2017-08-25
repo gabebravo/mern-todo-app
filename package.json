@@ -1,8 +1,11 @@
 {
   "name": "mern-todo-app",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.9.1"
+  },
   "description": "todo app",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
     "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js",
