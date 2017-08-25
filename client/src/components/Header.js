@@ -22,7 +22,7 @@ class Header extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink style={{ color: '#fff', fontSize: '1rem' }} href="/add-todo">Add Todos</NavLink>
+                <NavLink style={{ color: '#fff', fontSize: '1rem' }} href="/addTodo">Add Todos</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

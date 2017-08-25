@@ -8,7 +8,7 @@ const ActiveTodo = ({ todoDescription, id, handleCompletedClick }) => (
     <Col sm="6">
       <Card block inverse style={{ backgroundColor: '#2980b9', borderColor: '#2980b9', marginBottom: '5vh' }}>
         <CardTitle>
-          <Link to={`/edit-todo/${id}`}>
+          <Link to={`/editTodo/${id}`}>
             <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
           </Link>
           {todoDescription}</CardTitle>

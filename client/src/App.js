@@ -12,8 +12,9 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path='/' component={Homepage} />
-          <Route path='/add-todo' component={AddTodoPage} />
-          <Route path='/edit-todo/:id' component={EditTodoPage} />
+          <Route path='/addTodo' component={AddTodoPage} />
+          <Route path='/editTodo/:id' component={EditTodoPage} />
+          <Route></Route>
         </Switch>
       </Router>
     );
