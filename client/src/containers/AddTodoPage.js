@@ -7,9 +7,13 @@ import ModalPop from '../components/ModalPop';
 
 class AddTodoPage extends Component {
 
-  state = {
-    taskDescription: '', 
-    showModal: false
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      taskDescription: '', 
+      showModal: false
+    }
   }
 
   updateTaskDescription = e => {
