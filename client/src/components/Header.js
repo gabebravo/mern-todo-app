@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
 
@@ -22,7 +23,7 @@ class Header extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink style={{ color: '#fff', fontSize: '1rem' }} href="/addTodo">Add Todos</NavLink>
+                <Link to={'/addTodo'} style={{ color: '#fff', fontSize: '1rem' }}>Add Todos</Link>
               </NavItem>
             </Nav>
           </Collapse>
@@ -33,3 +34,5 @@ class Header extends Component {
 }
 
 export default Header;
+
+// href="/addTodo"
